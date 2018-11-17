@@ -2,8 +2,11 @@ package com.sparrowpaul.weatherdemo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         getWeather(); // getting the weather data using function
 
     }
+
     // end of main function our declared function is below
 
     private void initViews() { // initializing the views using find view by id
@@ -85,5 +89,30 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(jor);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.menuRefreshID){
+            getWeather();
+            Toast.makeText(this, "Refreshed", Toast.LENGTH_SHORT).show();
+        }
+        if (id == R.id.menuExitID){
+            this.finish();
+            System.exit(1);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
